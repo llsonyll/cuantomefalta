@@ -1,11 +1,16 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class StartCubit extends Cubit<bool> {
-  StartCubit() : super(false);
+enum AuthStatus {
+  guess_user,
+  auth_user,
+}
+
+class StartCubit extends Cubit<AuthStatus> {
+  StartCubit() : super(null);
 
   // void get StartCubit => false;
-  Future<void> switchTheme(bool isDark) async {
+  Future<void> init() async {
     await Future.delayed(const Duration(seconds: 2));
-    emit(!isDark);
+    emit(AuthStatus.auth_user);
   }
 }
