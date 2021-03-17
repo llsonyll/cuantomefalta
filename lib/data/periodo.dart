@@ -1,7 +1,7 @@
-class NotadePeriodo {
-  NotadePeriodo({this.id, this.nota, this.peso});
+class Periodo {
+  Periodo({this.id, this.nota = 0, this.peso = 1});
 
   final int id;
   final double nota;
-  final double peso;
+  final int peso;
 }

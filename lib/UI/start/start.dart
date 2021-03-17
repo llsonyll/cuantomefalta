@@ -1,5 +1,6 @@
-import 'package:cuantomefalta/UI/home/home.dart';
 import 'package:flutter/material.dart';
+
+import '../home/home_cuanto_me_falta.dart';
 
 class Home extends StatelessWidget {
   const Home({Key key}) : super(key: key);
@@ -17,8 +18,8 @@ class Home extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => Calculadora()));
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => HomeCuantoMeFalta()));
             },
             child: Text('Home'),
           ),

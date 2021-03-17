@@ -1,21 +1,23 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class NotaObjetivoCubit extends Cubit<int> {
-  NotaObjetivoCubit() : super(14);
+import 'home_cuanto_me_falta.dart';
+
+class NotaObjetivoCubit extends Cubit<double> {
+  NotaObjetivoCubit() : super(notaObjetivoMinima);
 
   void incrementarNotaObjetivo() {
-    if (state >= 20) {
-      emit(state);
-    } else {
+    if (state >= notaObjetivoMinima && state < notaMaxima) {
       emit(state + 1);
+    } else {
+      emit(state);
     }
   }
 
-  void reducirNotaObjetivo() {
-    if (state <= 14) {
-      emit(state);
-    } else {
+  void decrementarNotaObjetivo() {
+    if (state > notaObjetivoMinima && state <= notaMaxima) {
       emit(state - 1);
+    } else {
+      emit(state);
     }
   }
 }
