@@ -1,22 +1,24 @@
+import 'package:cuantomefalta/data/periodo.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PeriodosCubit extends Cubit<int> {
   PeriodosCubit() : super(1);
 
   List<NotadePeriodo> listaNotas = [
-    NotadePeriodo(nota: 0, peso: 1),
+    NotadePeriodo(id: 0, nota: 0, peso: 1),
   ];
 
   void agregarPeriodo() {
     if (state != 5) {
-      listaNotas.add(NotadePeriodo(nota: 0, peso: 1));
+      listaNotas.add(NotadePeriodo(id: listaNotas.length, nota: 0, peso: 1));
       emit(state + 1);
     } else {
       emit(state);
     }
   }
 
-  void quitarPeriodo() {
+  void quitarPeriodo(BuildContext context) {
     if (state == 1) {
       emit(state);
     } else {
@@ -24,11 +26,23 @@ class PeriodosCubit extends Cubit<int> {
       emit(state - 1);
     }
   }
-}
 
-class NotadePeriodo {
-  NotadePeriodo({this.nota, this.peso});
+  void verDetallesPeriodo(int id) {
+    for (var periodo in listaNotas) {
+      if (periodo.id == id) {
+        print(periodo.id);
+        print(periodo.nota);
+        print(periodo.peso);
+      }
+    }
+  }
 
-  final double nota;
-  final double peso;
+  void actualizarPeriodo(NotadePeriodo data) {
+    print(data.nota);
+    // for (var periodo in listaNotas) {
+    //   if (periodo.id == data.id) {
+    //     // actualizar ... la pta lista xd
+    //   }
+    // }
+  }
 }
