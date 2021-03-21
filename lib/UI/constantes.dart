@@ -35,3 +35,6 @@ const textos = TextStyle(
   fontSize: 15.0,
   fontWeight: FontWeight.w400,
 );
+
+// BorderRadius
+const borderRadius = 5.0;

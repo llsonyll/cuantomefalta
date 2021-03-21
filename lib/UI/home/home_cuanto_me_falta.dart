@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data/periodo.dart';
+import '../constantes.dart';
 import 'lista_periodos_cubit.dart';
 import 'nota_objetivo_cubit.dart';
 
@@ -23,9 +24,12 @@ class HomeCuantoMeFalta extends StatelessWidget {
               context.read<ListaPeriodosCubit>().calcularPromedioNotas;
           return BlocBuilder<NotaObjetivoCubit, double>(
             builder: (context, notaObjetivo) {
+              final aprobadoDesaprobado = notaObjetivo - notaPromedio <= .5;
               return Scaffold(
+                backgroundColor: Colors.grey[200],
                 appBar: AppBar(
                   title: Text('Calcula cuanto te falta..'),
+                  backgroundColor: Colors.black,
                 ),
                 body: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -33,126 +37,210 @@ class HomeCuantoMeFalta extends StatelessWidget {
                     Container(
                       width: double.infinity,
                       height: size.height * .1,
-                      color: Colors.purple,
+                      color: Colors.grey,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Que nota quieres?'),
-                        Row(
+                    Card(
+                      elevation: 5.0,
+                      margin: const EdgeInsets.all(0),
+                      color: Colors.grey[200],
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 5.0),
+                        child: Column(
                           children: [
-                            IconButton(
-                              icon: Icon(Icons.remove_circle),
-                              onPressed: () {
-                                context
-                                    .read<NotaObjetivoCubit>()
-                                    .decrementarNotaObjetivo();
-                              },
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Que nota quieres?',
+                                  style: textos.copyWith(color: Colors.black),
+                                ),
+                                Row(
+                                  children: [
+                                    IconButton(
+                                      icon: Icon(Icons.remove_circle),
+                                      onPressed: () {
+                                        context
+                                            .read<NotaObjetivoCubit>()
+                                            .decrementarNotaObjetivo();
+                                      },
+                                    ),
+                                    Text(
+                                      notaObjetivo.toString(),
+                                      style: subTitulo.copyWith(
+                                          color: Colors.black),
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.add_circle),
+                                      onPressed: () {
+                                        context
+                                            .read<NotaObjetivoCubit>()
+                                            .incrementarNotaObjetivo();
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                            Text(notaObjetivo.toString()),
-                            IconButton(
-                              icon: Icon(Icons.add_circle),
-                              onPressed: () {
-                                context
-                                    .read<NotaObjetivoCubit>()
-                                    .incrementarNotaObjetivo();
-                              },
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Periodos',
+                                  style: textos.copyWith(color: Colors.black),
+                                ),
+                                Row(
+                                  children: [
+                                    IconButton(
+                                      icon: Icon(Icons.remove_circle),
+                                      onPressed: () {
+                                        context
+                                            .read<ListaPeriodosCubit>()
+                                            .quitarPeriodo();
+                                      },
+                                    ),
+                                    Text(
+                                      listaPeriodos.length.toString(),
+                                      style: subTitulo.copyWith(
+                                          color: Colors.black),
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.add_circle),
+                                      onPressed: () {
+                                        context
+                                            .read<ListaPeriodosCubit>()
+                                            .agregarPeriodo();
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Periodos'),
-                        Row(
-                          children: [
-                            IconButton(
-                              icon: Icon(Icons.remove),
-                              onPressed: () {
-                                context
-                                    .read<ListaPeriodosCubit>()
-                                    .quitarPeriodo();
-                              },
-                            ),
-                            Text(listaPeriodos.length.toString()),
-                            IconButton(
-                              icon: Icon(Icons.add),
-                              onPressed: () {
-                                context
-                                    .read<ListaPeriodosCubit>()
-                                    .agregarPeriodo();
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
+                      ),
                     ),
                     Expanded(
                       child: ListView.builder(
                         itemCount: listaPeriodos.length,
                         itemBuilder: (context, index) {
                           final Periodo periodo = listaPeriodos[index];
-                          return ListTile(
-                            onTap: () {},
-                            tileColor: Colors.blue[100],
-                            // shape: RoundedRectangleBorder(),
-                            title: Text('Periodo: ${periodo.id + 1}'),
-                            subtitle: Row(
-                              children: [
-                                Text(
-                                  'Peso asignado: ${periodo.peso}',
-                                ),
-                                IconButton(
-                                  // splashColor: Colors.blue,
-                                  // splashRadius: 10.0,
-                                  icon: Icon(Icons.remove_circle),
-                                  onPressed: () {
-                                    context
-                                        .read<ListaPeriodosCubit>()
-                                        .decrementarPesoPeriodo(periodo);
-                                  },
-                                ), //
-                                IconButton(
-                                  icon: Icon(Icons.add_circle),
-                                  onPressed: () {
-                                    context
-                                        .read<ListaPeriodosCubit>()
-                                        .incrementarPesoPeriodo(periodo);
-                                  },
-                                ),
-                              ],
+                          return Card(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 10.0, vertical: 5.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(borderRadius),
                             ),
-                            trailing: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                            elevation: 2.0,
+                            child: Row(
                               children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    IconButton(
-                                      // splashColor: Colors.blue,
-                                      // splashRadius: 10.0,
-                                      icon: Icon(Icons.remove_circle),
-                                      onPressed: () {
-                                        context
-                                            .read<ListaPeriodosCubit>()
-                                            .decrementarNotaPeriodo(periodo);
-                                      },
+                                Expanded(
+                                  flex: 2,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(borderRadius),
+                                        bottomLeft:
+                                            Radius.circular(borderRadius),
+                                      ),
                                     ),
-                                    Text(periodo.nota.toString()),
-                                    IconButton(
-                                      icon: Icon(Icons.add_circle),
-                                      onPressed: () {
-                                        context
-                                            .read<ListaPeriodosCubit>()
-                                            .incrementarNotaPeriodo(periodo);
-                                      },
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            'Peso',
+                                            style: textos,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              IconButton(
+                                                // splashColor: Colors.blue,
+                                                // splashRadius: 10.0,
+                                                icon: Icon(
+                                                  Icons.remove_circle,
+                                                  color: Colors.white,
+                                                ),
+                                                onPressed: () {
+                                                  context
+                                                      .read<
+                                                          ListaPeriodosCubit>()
+                                                      .decrementarPesoPeriodo(
+                                                          periodo);
+                                                },
+                                              ), //
+                                              Text(
+                                                '${periodo.peso}',
+                                                style: subTitulo.copyWith(
+                                                    color: Colors.black),
+                                              ),
+                                              IconButton(
+                                                icon: Icon(
+                                                  Icons.add_circle,
+                                                  color: Colors.white,
+                                                ),
+                                                onPressed: () {
+                                                  context
+                                                      .read<
+                                                          ListaPeriodosCubit>()
+                                                      .incrementarPesoPeriodo(
+                                                          periodo);
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ],
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 4,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Column(
+                                      children: [
+                                        Text('Periodo ${periodo.id + 1}'),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            IconButton(
+                                              // splashColor: Colors.blue,
+                                              // splashRadius: 10.0,
+                                              icon: Icon(Icons.remove_circle),
+                                              onPressed: () {
+                                                context
+                                                    .read<ListaPeriodosCubit>()
+                                                    .decrementarNotaPeriodo(
+                                                        periodo);
+                                              },
+                                            ),
+                                            Text(
+                                              periodo.nota.toString(),
+                                              style: subTitulo.copyWith(
+                                                  color: Colors.black),
+                                            ),
+                                            IconButton(
+                                              icon: Icon(Icons.add_circle),
+                                              onPressed: () {
+                                                context
+                                                    .read<ListaPeriodosCubit>()
+                                                    .incrementarNotaPeriodo(
+                                                        periodo);
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
@@ -163,16 +251,29 @@ class HomeCuantoMeFalta extends StatelessWidget {
                     Container(
                       width: double.infinity,
                       height: size.height * .15,
-                      color: notaObjetivo - notaPromedio < .5
-                          ? Colors.green
-                          : Colors.red,
+                      color: aprobadoDesaprobado ? Colors.green : Colors.red,
                       child: Center(
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                                'NotaPromedio: ${notaPromedio.toStringAsFixed(2)}'),
+                              '${notaPromedio.toStringAsFixed(2)}',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 48.0,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
                             Text(
-                                'NotaObjetivo: ${notaObjetivo.toStringAsFixed(2)}'),
+                              'Nota Objetivo: ${notaObjetivo.toStringAsFixed(2)}',
+                              style: textos.copyWith(
+                                color: Colors.black87,
+                              ),
+                            ),
+                            Text(
+                              aprobadoDesaprobado ? 'Aprobado' : 'Desaprobado',
+                              style: subTitulo,
+                            ),
                           ],
                         ),
                       ),
