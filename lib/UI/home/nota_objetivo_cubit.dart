@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'home_cuanto_me_falta.dart';
+import '../constantes.dart';
 
 class NotaObjetivoCubit extends Cubit<double> {
   NotaObjetivoCubit() : super(notaObjetivoMinima);

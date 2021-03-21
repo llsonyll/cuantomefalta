@@ -5,14 +5,6 @@ import '../../data/periodo.dart';
 import 'lista_periodos_cubit.dart';
 import 'nota_objetivo_cubit.dart';
 
-const notaMaxima = 20;
-const notaMinima = 0;
-
-const pesoMaximo = 3;
-const pesoMinimo = 1;
-
-const double notaObjetivoMinima = 14;
-
 class HomeCuantoMeFalta extends StatelessWidget {
   const HomeCuantoMeFalta({Key key}) : super(key: key);
 

@@ -1,7 +1,7 @@
+import 'package:cuantomefalta/UI/constantes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data/periodo.dart';
-import 'home_cuanto_me_falta.dart';
 
 class ListaPeriodosCubit extends Cubit<List<Periodo>> {
   ListaPeriodosCubit() : super([]);
