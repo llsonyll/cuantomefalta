@@ -17,7 +17,7 @@ class Home extends StatelessWidget {
         children: [
           Container(
             height: size.height * .2,
-            color: Colors.grey,
+            color: Colors.transparent,
           ),
           const SizedBox(height: 20),
           Icon(Icons.gamepad_rounded, size: 100.0, color: Colors.white),
@@ -45,12 +45,15 @@ class Home extends StatelessWidget {
                     builder: (context) => HomeCuantoMeFalta()));
               },
               child: Text('Iniciar'),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+              ),
             ),
           ),
           const SizedBox(height: 20),
           Expanded(
             child: Container(
-              color: Colors.grey,
+              color: Colors.transparent,
             ),
           ),
         ],

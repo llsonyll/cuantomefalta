@@ -1,4 +1,4 @@
-package com.example.cuantomefalta
+package com.nicedot.cuantomefalta
 
 import io.flutter.embedding.android.FlutterActivity
 

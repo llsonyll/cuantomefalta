@@ -11,7 +11,7 @@ class HomeCuantoMeFalta extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    // final size = MediaQuery.of(context).size;
 
     return MultiBlocProvider(
       providers: [
@@ -30,15 +30,16 @@ class HomeCuantoMeFalta extends StatelessWidget {
                 appBar: AppBar(
                   title: Text('Calcula cuanto te falta..'),
                   backgroundColor: Colors.black,
+                  centerTitle: true,
                 ),
                 body: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Container(
-                      width: double.infinity,
-                      height: size.height * .1,
-                      color: Colors.grey,
-                    ),
+                    // Container(
+                    //   width: double.infinity,
+                    //   height: size.height * .1,
+                    //   color: Colors.grey,
+                    // ),
                     Card(
                       elevation: 5.0,
                       margin: const EdgeInsets.all(0),
@@ -86,7 +87,7 @@ class HomeCuantoMeFalta extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Periodos',
+                                  'Ciclos/Unidades',
                                   style: textos.copyWith(color: Colors.black),
                                 ),
                                 Row(
@@ -120,6 +121,7 @@ class HomeCuantoMeFalta extends StatelessWidget {
                         ),
                       ),
                     ),
+                    // const SizedBox(height: 10.0),
                     Expanded(
                       child: ListView.builder(
                         itemCount: listaPeriodos.length,
@@ -127,7 +129,7 @@ class HomeCuantoMeFalta extends StatelessWidget {
                           final Periodo periodo = listaPeriodos[index];
                           return Card(
                             margin: const EdgeInsets.symmetric(
-                                horizontal: 10.0, vertical: 5.0),
+                                horizontal: 10.0, vertical: 8.0),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(borderRadius),
                             ),
@@ -203,7 +205,7 @@ class HomeCuantoMeFalta extends StatelessWidget {
                                     padding: const EdgeInsets.only(top: 8.0),
                                     child: Column(
                                       children: [
-                                        Text('Periodo ${periodo.id + 1}'),
+                                        Text('Ciclo/Unidad: ${periodo.id + 1}'),
                                         Row(
                                           mainAxisSize: MainAxisSize.min,
                                           crossAxisAlignment:
@@ -249,8 +251,8 @@ class HomeCuantoMeFalta extends StatelessWidget {
                       ),
                     ),
                     Container(
+                      padding: const EdgeInsets.symmetric(vertical: 15.0),
                       width: double.infinity,
-                      height: size.height * .15,
                       color: aprobadoDesaprobado ? Colors.green : Colors.red,
                       child: Center(
                         child: Column(
